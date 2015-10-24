@@ -15,7 +15,7 @@ function getCiteData (citeurl) {
               url: citeurl
             }, 
 			async: false
-          }).responseText;
+          }).responseJSON;
 		  
 		  //.done(function (resp) {
  //           debug.log('got response', resp);
@@ -42,6 +42,10 @@ function onAnchorClick(event){
 		url: event.srcElement.href
 	});
 	return false;
+}
+
+function submitted(event){
+	console.log("made it");
 }
 
 //given an array of URLs, build a DOM list of those URLs 
@@ -87,12 +91,15 @@ function buildPopopDom(divName, data){
 	submitelement.setAttribute("type", "submit");
 	submitelement.setAttribute("name", "dsubmit");
 	submitelement.setAttribute("value", "Submit");
-	form.appendChild(submitelement);
+	submitelement.addEventListener('click', submitted);
+	form.appendChild(submitelement)
 	
 	var url = "http://www.nytimes.com/2015/10/24/opinion/reinventing-the-library.html"
 	console.log(getCiteData(url));
 	
 }
+
+
 
 //I just want to print out a bunch of history
 function buildUrlList(divName){
