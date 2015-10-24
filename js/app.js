@@ -25,27 +25,7 @@ function onAnchorClick(event){
 	return false;
 }
 
-function parselinks(arr){
-//	console.log(arr);
 
-	for(var i = 0; i < arr.length; i++){
-		if(arr[i].status == "ok"){
-//			console.log(arr[i].data.data);
-			var str = "";
-			var root = arr[i].data.data;
-			str = str.concat(root.pubonline.title + ". ");
-			str = str.concat(root.website.title + ". ");
-			str = str.concat(root.pubonline.year + ". ");
-			str = str.concat("Web. " + root.pubonline.dayaccessed + " ");
-			str = str.concat(root.pubonline.monthaccessed + " ");
-			str = str.concat(root.pubonline.yearaccessed + " ");
-			console.log(str);
-		}
-		else{
-			console.log("your article un-exCite-ing");
-		}	
-	}
-}
 
 //given an array of URLs, build a DOM list of those URLs 
 //in the browser action popup
@@ -139,3 +119,4 @@ document.addEventListener('DOMContentLoaded', function () {
 	console.log("I DID THING");
 	buildUrlList("app_div");
 });
+

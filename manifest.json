@@ -18,7 +18,7 @@
     "run_at": "document_end"
   }],
   "permissions":[
-    "history",
+    "history"
     // "fileSystem", 
     //   {"fileSystem": ["write"]}, 
     //   {"fileSystem": ["write", "retainEntries", "directory"]} 
