@@ -63,18 +63,19 @@ function buildPopupDom(divName, data){
 	//loop through map
 	//make the map a paragraph and show it's keys(urls) with checkboxes
 	for(var key in map){
+		var div = document.createElement('div');
+		div.setAttribute("id",key);
+		form.appendChild(div);
+		
 		var par = document.createElement('p');
 		par.innerText = key;
-		form.appendChild(par);
-		
-		var linebreak = document.createElement('br');
-		form.appendChild(linebreak);
+		div.appendChild(par);
 		
 		for(var k = 0; k < map[key].length; k++){
 			var a = document.createElement('a');
 			//makes data refer to 'a' url
 			a.href = map[key][k];
-//			a.setAttribute("hidden", "true");
+			a.setAttribute("hidden", "true");
 			//makes the text of the data here a child of 'a'
 			a.appendChild(document.createTextNode(map[key][k]));
 			//makes the link listen for a click
@@ -83,15 +84,13 @@ function buildPopupDom(divName, data){
 			var input = document.createElement('input');
 			input.setAttribute("type","checkbox");
 			input.setAttribute("value",map[key][k]);
-//			input.setAttribute("hidden", "true");
-			// form.appendChild(input);
-			// form.appendChild(a);
-			par.appendChild(input);
-			par.appendChild(a);
+			input.setAttribute("hidden", "true");
+			 div.appendChild(input);
+			 div.appendChild(a);
 			
-			var linebreak = document.createElement('br');
-//			linebreak.setAttribute("hidden", "true");
-			form.appendChild(linebreak);
+			linebreak = document.createElement('br');
+			linebreak.setAttribute("hidden", "true");
+			div.appendChild(linebreak);
 		}
 
 	}
