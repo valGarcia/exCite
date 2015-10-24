@@ -10,13 +10,13 @@ function parselinks(arr){
 			var str = "";
 			var root = arr[i].data.data;
 			str = str.concat(root.pubonline.title + ". ");
-			str = str.concat(root.website.title + ". ");
+			str = str.concat("<i>" + root.website.title + ".</i> ");
 			str = str.concat(root.pubonline.year + ". ");
 			str = str.concat("Web. " + root.pubonline.dayaccessed + " ");
 			str = str.concat(root.pubonline.monthaccessed + " ");
 			str = str.concat(root.pubonline.yearaccessed + " ");
 			var par = document.createElement('p');
-			par.innerText = str;
+			par.innerHTML = str;
 			newDiv.appendChild(par);
 			//console.log(str);
 		}
