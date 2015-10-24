@@ -1,11 +1,6 @@
 function getCiteData (citeurl) {
-//      var df = new $.Deferred(),
           self = this;
 
-//      debug.log('fetching cite data');
-//      chrome.windows.getCurrent(function (currentWindow) {
-//       chrome.tabs.getSelected(currentWindow.id, function (selectedTab) {
-//          debug.log('fetching it');
           return $.ajax({
             url: 'http://autocite.easybib.com/index/json',
             type: 'GET',
@@ -17,19 +12,6 @@ function getCiteData (citeurl) {
 			async: false
           }).responseJSON;
 		  
-		  //.done(function (resp) {
- //           debug.log('got response', resp);
-        //     if (resp.status === 'ok') {
-        //       df.resolve(resp.data.data);
-        //     } else {
-        //       df.reject(resp);
-        //     }
-        //   }).fail(function (err) {
-        //     df.reject(err);
-        //   });
-//        });
-//      });
-//      return df;
 }
 
 
@@ -45,7 +27,8 @@ function onAnchorClick(event){
 }
 
 function parselinks(arr){
-	console.log(arr);
+//	console.log(arr);
+
 	for(var i = 0; i < arr.length; i++){
 		if(arr[i].status == "ok"){
 //			console.log(arr[i].data.data);
@@ -93,7 +76,6 @@ function buildPopopDom(divName, data){
 		//makes the text of the data here a child of 'a'
 		a.appendChild(document.createTextNode(data[i]));
 		//makes the link listen for a click
-		//a.addEventListener('click', onAnchorClick);
 		
 		//makes a list item
 		var input = document.createElement('input');
@@ -119,10 +101,13 @@ function buildPopopDom(divName, data){
 		for (i = 0, ie = children.length; i < ie; ++i) {
 			if(children[i].localName == "input" && children[i].checked)
 			{
-				listofLinks.push(getCiteData(children[i].value));
-//				console.log(listofLinks[listofLinks.length -1]);			
+				listofLinks.push(getCiteData(children[i].value));		
 			}
 		}
+		chrome.fileSystem.chooseEntry("filename", function(entry){
+			console.log(entry);
+		}
+			);
 		parselinks(listofLinks);
 	});
 
