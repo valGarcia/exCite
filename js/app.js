@@ -1,3 +1,36 @@
+function getCiteData (citeurl) {
+      var df = new $.Deferred(),
+          self = this;
+
+//      debug.log('fetching cite data');
+//      chrome.windows.getCurrent(function (currentWindow) {
+//       chrome.tabs.getSelected(currentWindow.id, function (selectedTab) {
+//          debug.log('fetching it');
+          $.ajax({
+            url: 'http://autocite.easybib.com/index/json',
+            type: 'GET',
+            dataType: 'JSON',
+            timeout: self.timeout,
+            data: {
+              url: citeurl
+            }
+          }).done(function (resp) {
+ //           debug.log('got response', resp);
+            if (resp.status === 'ok') {
+              df.resolve(resp.data.data);
+            } else {
+              df.reject(resp);
+            }
+          }).fail(function (err) {
+            df.reject(err);
+          });
+//        });
+//      });
+      return df;
+}
+
+
+
 //Event listener for clicks in a browser action popop.
 //open the link in a new tab of the current window.
 function onAnchorClick(event){
@@ -52,6 +85,9 @@ function buildPopopDom(divName, data){
 	submitelement.setAttribute("name", "dsubmit");
 	submitelement.setAttribute("value", "Submit");
 	form.appendChild(submitelement);
+	
+	var url = "http://www.nytimes.com/2015/10/24/opinion/reinventing-the-library.html"
+	getCiteData(url);
 }
 
 //I just want to print out a bunch of history
