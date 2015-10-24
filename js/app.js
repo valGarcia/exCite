@@ -45,7 +45,7 @@ function onAnchorClick(event){
 }
 
 function submitted(event){
-	console.log("made it");
+	console.log(form);
 }
 
 //given an array of URLs, build a DOM list of those URLs 
@@ -56,6 +56,7 @@ function buildPopopDom(divName, data){
 	var form = document.createElement('form');
 	form.setAttribute("action","");
 	form.setAttribute("method", "post");
+	form.setAttribute("enctype","application/json");
 	popupDiv.appendChild(form);
 	
 	var heading = document.createElement('h2');
@@ -75,11 +76,12 @@ function buildPopopDom(divName, data){
 		//makes the text of the data here a child of 'a'
 		a.appendChild(document.createTextNode(data[i]));
 		//makes the link listen for a click
-		a.addEventListener('click', onAnchorClick);
+		//a.addEventListener('click', onAnchorClick);
 		
 		//makes a list item
 		var input = document.createElement('input');
 		input.setAttribute("type","checkbox");
+		input.setAttribute("value",data[i]);
 		form.appendChild(input);
 		form.appendChild(a);
 		
@@ -91,8 +93,19 @@ function buildPopopDom(divName, data){
 	submitelement.setAttribute("type", "submit");
 	submitelement.setAttribute("name", "dsubmit");
 	submitelement.setAttribute("value", "Submit");
-	submitelement.addEventListener('click', submitted);
-	form.appendChild(submitelement)
+	form.appendChild(submitelement);
+	var linksToCite = $(submitelement).on("click", function(e){	
+		e.preventDefault();
+		var listofLinks = [];
+		var children = form.childNodes; 
+		for (i = 0, ie = children.length; i < ie; ++i) {
+			if(children[i].localName == "input" && children[i].checked)
+			{
+				listofLinks.push(children[i].value);
+			}
+		}
+		return listofLinks;
+	});
 	
 	var url = "http://www.nytimes.com/2015/10/24/opinion/reinventing-the-library.html"
 	console.log(getCiteData(url));
