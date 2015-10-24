@@ -66,10 +66,15 @@ function buildPopupDom(divName, data){
 		var par = document.createElement('p');
 		par.innerText = key;
 		form.appendChild(par);
+		
+		var linebreak = document.createElement('br');
+		form.appendChild(linebreak);
+		
 		for(var k = 0; k < map[key].length; k++){
 			var a = document.createElement('a');
 			//makes data refer to 'a' url
 			a.href = map[key][k];
+//			a.setAttribute("hidden", "true");
 			//makes the text of the data here a child of 'a'
 			a.appendChild(document.createTextNode(map[key][k]));
 			//makes the link listen for a click
@@ -78,14 +83,17 @@ function buildPopupDom(divName, data){
 			var input = document.createElement('input');
 			input.setAttribute("type","checkbox");
 			input.setAttribute("value",map[key][k]);
-			form.appendChild(input);
-			form.appendChild(a);
+//			input.setAttribute("hidden", "true");
+			// form.appendChild(input);
+			// form.appendChild(a);
+			par.appendChild(input);
+			par.appendChild(a);
 			
-			linebreak = document.createElement('br');
+			var linebreak = document.createElement('br');
+//			linebreak.setAttribute("hidden", "true");
 			form.appendChild(linebreak);
 		}
-		linebreak = document.createElement('br');
-		form.appendChild(linebreak);
+
 	}
 	
 	var submitelement = document.createElement('input'); // Append Submit Button
