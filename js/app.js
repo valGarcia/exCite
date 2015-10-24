@@ -13,9 +13,20 @@ function onAnchorClick(event){
 function buildPopopDom(divName, data){
 	var popupDiv = document.getElementById(divName);
 	//create an unordered list
-	var ul = document.createElement('ul');
-	//calls this a child of popupDiv
-	popupDiv.appendChild(ul);
+	var form = document.createElement('form');
+	form.setAttribute("action","");
+	form.setAttribute("method", "post");
+	popupDiv.appendChild(form);
+	
+	var heading = document.createElement('h2');
+	heading.innerHTML = "Pick the links you want";
+	form.appendChild(heading);
+	
+	var line = document.createElement('hr');
+	form.appendChild(line);
+	
+	var linebreak = document.createElement('br');
+	form.appendChild(linebreak);
 	
 	for(var i = 0, ie = data.length; i < ie; i++){
 		var a = document.createElement('a');
@@ -27,10 +38,20 @@ function buildPopopDom(divName, data){
 		a.addEventListener('click', onAnchorClick);
 		
 		//makes a list item
-		var li = document.createElement('li');
-		li.appendChild(a);
-		ul.appendChild(li);		
+		var input = document.createElement('input');
+		input.setAttribute("type","checkbox");
+		form.appendChild(input);
+		form.appendChild(a);
+		
+		var linebreak = document.createElement('br');
+		form.appendChild(linebreak);
 	}
+	
+	var submitelement = document.createElement('input'); // Append Submit Button
+	submitelement.setAttribute("type", "submit");
+	submitelement.setAttribute("name", "dsubmit");
+	submitelement.setAttribute("value", "Submit");
+	form.appendChild(submitelement);
 }
 
 //I just want to print out a bunch of history
