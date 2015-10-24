@@ -15,7 +15,6 @@ function getCiteData (citeurl) {
 }
 
 
-
 //Event listener for clicks in a browser action popop.
 //open the link in a new tab of the current window.
 function onAnchorClick(event){
