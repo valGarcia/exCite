@@ -59,23 +59,34 @@ function buildPopupDom(divName, data){
 		
 	}
 	console.log(map);
-	
+	var q = 0;
 	//loop through map
 	//make the map a paragraph and show it's keys(urls) with checkboxes
 	for(var key in map){
 		var div = document.createElement('div');
 		div.setAttribute("id",key);
+		div.setAttribute("class", "dropdown_div");
+		div.setAttribute("hidden", "true");
 		form.appendChild(div);
-		
+		q++;
 		var par = document.createElement('p');
 		par.innerText = key;
-		div.appendChild(par);
+		form.appendChild(par);
+		par.addEventListener("click", function(e) {
+			$()
+		})
+		$(par).on("click", function () {
+  			if ( $(div).is( ":hidden" ) ) {
+   				 $(div).children().slideDown( "slow" );
+ 		 	} else {
+   			 $(div).hide();
+ 		 	}
+		});
 		
 		for(var k = 0; k < map[key].length; k++){
 			var a = document.createElement('a');
 			//makes data refer to 'a' url
 			a.href = map[key][k];
-			a.setAttribute("hidden", "true");
 			//makes the text of the data here a child of 'a'
 			a.appendChild(document.createTextNode(map[key][k]));
 			//makes the link listen for a click
@@ -84,16 +95,16 @@ function buildPopupDom(divName, data){
 			var input = document.createElement('input');
 			input.setAttribute("type","checkbox");
 			input.setAttribute("value",map[key][k]);
-			input.setAttribute("hidden", "true");
 			 div.appendChild(input);
 			 div.appendChild(a);
 			
 			linebreak = document.createElement('br');
-			linebreak.setAttribute("hidden", "true");
 			div.appendChild(linebreak);
 		}
 
 	}
+	
+	
 	
 	var submitelement = document.createElement('input'); // Append Submit Button
 	submitelement.setAttribute("type", "submit");
