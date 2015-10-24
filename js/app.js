@@ -46,6 +46,23 @@ function onAnchorClick(event){
 
 function parselinks(arr){
 	console.log(arr);
+	for(var i = 0; i < arr.length; i++){
+		if(arr[i].status == "ok"){
+//			console.log(arr[i].data.data);
+			var str = "";
+			var root = arr[i].data.data;
+			str = str.concat(root.pubonline.title + ". ");
+			str = str.concat(root.website.title + ". ");
+			str = str.concat(root.pubonline.year + ". ");
+			str = str.concat("Web. " + root.pubonline.dayaccessed + " ");
+			str = str.concat(root.pubonline.monthaccessed + " ");
+			str = str.concat(root.pubonline.yearaccessed + " ");
+			console.log(str);
+		}
+		else{
+			console.log("your article un-exCite-ing");
+		}	
+	}
 }
 
 //given an array of URLs, build a DOM list of those URLs 
@@ -107,24 +124,21 @@ function buildPopopDom(divName, data){
 			}
 		}
 		parselinks(listofLinks);
-		// return listofLinks;
 	});
-	// for(var k = 0, ke = listofLinks.length; k < ke; k++){
-	// 	console.log(listofLinks[k]);
-	// }
+
 }
 
 
 
 //I just want to print out a bunch of history
 function buildUrlList(divName){
-	var microsecondsPerDay = 1000 * 60 * 60 * 24;
+	var microsecondsPerHour = 1000 * 60 * 60;
 	//subtract a day of microseconds from the current time
-	var oneDayAgo = (new Date).getTime() - microsecondsPerDay;
+	var oneHourAgo = (new Date).getTime() - microsecondsPerHour;
 	
 	chrome.history.search({
 		'text': '',		//return every history item
-		'startTime': oneDayAgo	//accessed less than one day ago
+		'startTime': oneHourAgo	//accessed less than one day ago
 	}, 
 	
 	function(historyItems){
