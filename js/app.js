@@ -25,7 +25,17 @@ function onAnchorClick(event){
 	return false;
 }
 
-
+function listHelper(object,value) {
+	if(object != undefined){
+		object.push(value);
+		console.log("hit >1 regex");
+	}
+	else{
+		object = [];
+		object.push(value);
+		console.log("hit new regex");
+	}
+}
 
 //given an array of URLs, build a DOM list of those URLs 
 //in the browser action popup
@@ -47,6 +57,23 @@ function buildPopupDom(divName, data){
 	
 	var linebreak = document.createElement('br');
 	form.appendChild(linebreak);
+	
+	//make map of regular expressions to make finding urls easier
+	var map = {};
+	for(var j = 0; j < data.length; j++){
+		var re = /http[s]?\:\/\/[^\/]+\/*/;
+		var url = data[j];
+		var root = re.exec(url)[0];
+		if(!(root in map)){
+			map[root] = [];
+		}
+		map[root].push(url);
+		
+//		listHelper(map[root], url);
+		
+	}
+	console.log(map);
+	
 	
 	for(var i = 0, ie = data.length; i < ie; i++){
 		var a = document.createElement('a');
