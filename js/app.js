@@ -25,18 +25,6 @@ function onAnchorClick(event){
 	return false;
 }
 
-function listHelper(object,value) {
-	if(object != undefined){
-		object.push(value);
-		console.log("hit >1 regex");
-	}
-	else{
-		object = [];
-		object.push(value);
-		console.log("hit new regex");
-	}
-}
-
 //given an array of URLs, build a DOM list of those URLs 
 //in the browser action popup
 function buildPopupDom(divName, data){
@@ -69,27 +57,33 @@ function buildPopupDom(divName, data){
 		}
 		map[root].push(url);
 		
-//		listHelper(map[root], url);
-		
 	}
 	console.log(map);
 	
-	
-	for(var i = 0, ie = data.length; i < ie; i++){
-		var a = document.createElement('a');
-		//makes data refer to 'a' url
-		a.href = data[i];
-		//makes the text of the data here a child of 'a'
-		a.appendChild(document.createTextNode(data[i]));
-		//makes the link listen for a click
-		
-		//makes a list item
-		var input = document.createElement('input');
-		input.setAttribute("type","checkbox");
-		input.setAttribute("value",data[i]);
-		form.appendChild(input);
-		form.appendChild(a);
-		
+	//loop through map
+	//make the map a paragraph and show it's keys(urls) with checkboxes
+	for(var key in map){
+		var par = document.createElement('p');
+		par.innerText = key;
+		form.appendChild(par);
+		for(var k = 0; k < map[key].length; k++){
+			var a = document.createElement('a');
+			//makes data refer to 'a' url
+			a.href = map[key][k];
+			//makes the text of the data here a child of 'a'
+			a.appendChild(document.createTextNode(map[key][k]));
+			//makes the link listen for a click
+			
+			//makes a list item
+			var input = document.createElement('input');
+			input.setAttribute("type","checkbox");
+			input.setAttribute("value",map[key][k]);
+			form.appendChild(input);
+			form.appendChild(a);
+			
+			linebreak = document.createElement('br');
+			form.appendChild(linebreak);
+		}
 		linebreak = document.createElement('br');
 		form.appendChild(linebreak);
 	}
