@@ -67,21 +67,11 @@ function buildPopupDom(divName, data){
 		div.setAttribute("id",key);
 		div.setAttribute("class", "dropdown_div");
 		div.setAttribute("hidden", "true");
-		form.appendChild(div);
-		q++;
+		
 		var par = document.createElement('p');
 		par.innerText = key;
 		form.appendChild(par);
-		par.addEventListener("click", function(e) {
-			$()
-		})
-		$(par).on("click", function () {
-  			if ( $(div).is( ":hidden" ) ) {
-   				 $(div).children().slideDown( "slow" );
- 		 	} else {
-   			 $(div).hide();
- 		 	}
-		});
+		form.appendChild(div);
 		
 		for(var k = 0; k < map[key].length; k++){
 			var a = document.createElement('a');
@@ -101,6 +91,15 @@ function buildPopupDom(divName, data){
 			linebreak = document.createElement('br');
 			div.appendChild(linebreak);
 		}
+		
+		par.addEventListener("click", function(e) {
+			if($(div).is(":hidden")) {
+				$(div).slideDown("slow");
+			}
+			else {
+				$(div).hide();
+			}
+		});
 
 	}
 	
