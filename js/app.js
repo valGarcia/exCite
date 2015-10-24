@@ -66,11 +66,12 @@ function buildPopupDom(divName, data){
 		var div = document.createElement('div');
 		div.setAttribute("id",key);
 		div.setAttribute("class", "dropdown_div");
-		div.setAttribute("hidden", "true");
+//		div.setAttribute("hidden", "true");
 		
 		var par = document.createElement('p');
 		par.innerText = key;
 		form.appendChild(par);
+		
 		form.appendChild(div);
 		
 		for(var k = 0; k < map[key].length; k++){
@@ -100,6 +101,10 @@ function buildPopupDom(divName, data){
 				$(div).hide();
 			}
 		});
+		// $(par).on("click", function(e){
+		// 	e.preventDefault();
+		// 	if()
+		// })
 
 	}
 	
@@ -114,17 +119,18 @@ function buildPopupDom(divName, data){
 	var listofLinks = [];
 	$(submitelement).on("click", function(e){	
 		e.preventDefault();
-		var children = form.childNodes; 
-		for (i = 0, ie = children.length; i < ie; ++i) {
-			if(children[i].localName == "input" && children[i].checked)
-			{
-				listofLinks.push(getCiteData(children[i].value));		
+		var parent = form.childNodes; 
+		for(var p = 0; p < parent.length; p++){
+			if(parent[p].localName == "div"){
+				var children =parent[p].childNodes;
+				for (var i = 0, ie = children.length; i < ie; ++i) {
+					if(children[i].localName == "input" && children[i].checked)
+					{
+						listofLinks.push(getCiteData(children[i].value));		
+					}
+				}
 			}
 		}
-		// chrome.fileSystem.chooseEntry("filename", function(entry){
-		// 	console.log(entry);
-		// }
-		// 	);
 		parselinks(listofLinks);
 	});
 
