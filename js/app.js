@@ -50,7 +50,7 @@ function parselinks(arr){
 
 //given an array of URLs, build a DOM list of those URLs 
 //in the browser action popup
-function buildPopopDom(divName, data){
+function buildPopupDom(divName, data){
 	var popupDiv = document.getElementById(divName);
 	//create an unordered list
 	var form = document.createElement('form');
@@ -84,7 +84,7 @@ function buildPopopDom(divName, data){
 		form.appendChild(input);
 		form.appendChild(a);
 		
-		var linebreak = document.createElement('br');
+		linebreak = document.createElement('br');
 		form.appendChild(linebreak);
 	}
 	
@@ -104,10 +104,10 @@ function buildPopopDom(divName, data){
 				listofLinks.push(getCiteData(children[i].value));		
 			}
 		}
-		chrome.fileSystem.chooseEntry("filename", function(entry){
-			console.log(entry);
-		}
-			);
+		// chrome.fileSystem.chooseEntry("filename", function(entry){
+		// 	console.log(entry);
+		// }
+		// 	);
 		parselinks(listofLinks);
 	});
 
@@ -132,7 +132,7 @@ function buildUrlList(divName){
 			var url = historyItems[i].url;
 			urls.push(url);
 		}
-		buildPopopDom(divName, urls);
+		buildPopupDom(divName, urls);
 	})
 }
 
