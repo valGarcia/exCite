@@ -58,26 +58,26 @@ function buildPopupDom(divName, data){
 		map[root].push(url);
 		
 	}
+	map["https://www.google.com/"] = [];
 	console.log(map);
-	var q = 0;
+	
 	//loop through map
 	//make the map a paragraph and show it's keys(urls) with checkboxes
 	for(var key in map){
-		var div = document.createElement('div');
-		div.setAttribute("id",key);
-		div.setAttribute("class", "dropdown_div");
-//		div.setAttribute("hidden", "true");
-		
 		var par = document.createElement('p');
 		par.innerText = key;
 		form.appendChild(par);
 		
-		form.appendChild(div);
-		
 		for(var k = 0; k < map[key].length; k++){
+			
+			linebreak = document.createElement('br');
+//			linebreak.setAttribute("hidden", "true");
+			par.appendChild(linebreak);
+			
 			var a = document.createElement('a');
 			//makes data refer to 'a' url
 			a.href = map[key][k];
+//			a.setAttribute("hidden", "true");
 			//makes the text of the data here a child of 'a'
 			a.appendChild(document.createTextNode(map[key][k]));
 			//makes the link listen for a click
@@ -86,29 +86,15 @@ function buildPopupDom(divName, data){
 			var input = document.createElement('input');
 			input.setAttribute("type","checkbox");
 			input.setAttribute("value",map[key][k]);
-			 div.appendChild(input);
-			 div.appendChild(a);
-			
-			linebreak = document.createElement('br');
-			div.appendChild(linebreak);
+//			input.setAttribute("hidden", "true");
+			// form.appendChild(input);
+			// form.appendChild(a);
+			par.appendChild(input);
+			par.appendChild(a);			
+
 		}
-		
-		par.addEventListener("click", function(e) {
-			if($(div).is(":hidden")) {
-				$(div).slideDown("slow");
-			}
-			else {
-				$(div).hide();
-			}
-		});
-		// $(par).on("click", function(e){
-		// 	e.preventDefault();
-		// 	if()
-		// })
 
 	}
-	
-	
 	
 	var submitelement = document.createElement('input'); // Append Submit Button
 	submitelement.setAttribute("type", "submit");
@@ -121,7 +107,7 @@ function buildPopupDom(divName, data){
 		e.preventDefault();
 		var parent = form.childNodes; 
 		for(var p = 0; p < parent.length; p++){
-			if(parent[p].localName == "div"){
+			if(parent[p].localName == "p"){
 				var children =parent[p].childNodes;
 				for (var i = 0, ie = children.length; i < ie; ++i) {
 					if(children[i].localName == "input" && children[i].checked)
@@ -163,4 +149,3 @@ document.addEventListener('DOMContentLoaded', function () {
 	console.log("I DID THING");
 	buildUrlList("app_div");
 });
-
