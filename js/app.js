@@ -25,6 +25,10 @@ function onAnchorClick(event){
 	return false;
 }
 
+
+
+
+
 //given an array of URLs, build a DOM list of those URLs 
 //in the browser action popup
 function buildPopupDom(divName, data){
@@ -46,16 +50,25 @@ function buildPopupDom(divName, data){
 	var linebreak = document.createElement('br');
 	form.appendChild(linebreak);
 	
+
 	//make map of regular expressions to make finding urls easier
 	var map = {};
+//	map["links"] = [];
 	for(var j = 0; j < data.length; j++){
 		var re = /http[s]?\:\/\/[^\/]+\/*/;
 		var url = data[j];
-		var root = re.exec(url)[0];
-		if(!(root in map)){
-			map[root] = [];
+		var arrRoot = re.exec(url);
+		var root = null;
+		if(arrRoot != null){
+			root = arrRoot[0];
 		}
-		map[root].push(url);
+		if(!(root in map) && root != null){
+			map[root] = [];
+			map[root].push(url);
+		}
+		else if(root != null){
+			map[root].push(url);
+		}
 		
 	}
 	map["https://www.google.com/"] = [];
@@ -126,13 +139,13 @@ function buildPopupDom(divName, data){
 
 //I just want to print out a bunch of history
 function buildUrlList(divName){
-	var microsecondsPerHour = 1000 * 60 * 60;
+	var microsecondsPerTime = 1000 * 60 * 60 * 24;
 	//subtract a day of microseconds from the current time
-	var oneHourAgo = (new Date).getTime() - microsecondsPerHour;
+	var oneTimeAgo = (new Date).getTime() - microsecondsPerTime;
 	
 	chrome.history.search({
 		'text': '',		//return every history item
-		'startTime': oneHourAgo	//accessed less than one day ago
+		'startTime': oneTimeAgo	//accessed less than one day ago
 	}, 
 	
 	function(historyItems){
